@@ -6,11 +6,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.gluszczykk.dzien3.databinding.ItemSelectorBinding
 
-class BrightnessAdapter(private val items: List<Brightness>) : RecyclerView.Adapter<BrightnessViewHolder>() {
+class BrightnessAdapter(private val items: List<Brightness>, private val onBrightnessClickListener: OnBrightnessClickListener) : RecyclerView.Adapter<BrightnessViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BrightnessViewHolder {
         val viewBinding = ItemSelectorBinding.inflate(LayoutInflater.from(parent.context))
-        return BrightnessViewHolder(viewBinding)
+        return BrightnessViewHolder(viewBinding, onBrightnessClickListener)
     }
 
     override fun onBindViewHolder(holder: BrightnessViewHolder, position: Int) {
@@ -20,8 +20,13 @@ class BrightnessAdapter(private val items: List<Brightness>) : RecyclerView.Adap
     override fun getItemCount() = items.size
 }
 
-class BrightnessViewHolder(private val viewBinding: ItemSelectorBinding) : RecyclerView.ViewHolder(viewBinding.root) {
+typealias OnBrightnessClickListener = (Brightness) -> Unit
+
+class BrightnessViewHolder(private val viewBinding: ItemSelectorBinding, private val onBrightnessClickListener: OnBrightnessClickListener) : RecyclerView.ViewHolder(viewBinding.root) {
     fun bind(item: Brightness) {
         viewBinding.itemModel = item
+        viewBinding.root.setOnClickListener {
+            onBrightnessClickListener(item)
+        }
     }
 }

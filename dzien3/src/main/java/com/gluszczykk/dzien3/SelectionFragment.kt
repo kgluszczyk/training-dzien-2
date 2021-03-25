@@ -10,7 +10,9 @@ class SelectionFragment : Fragment(R.layout.fragment_selection) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = BrightnessAdapter(getBrightnesses())
+        val adapter = BrightnessAdapter(getBrightnesses()) {
+            println("Kliknięto: $it")
+        }
         val recyclerView = view.findViewById<RecyclerView>(R.id.brightness_list)
         recyclerView.adapter = adapter
     }

@@ -21,10 +21,7 @@ class BrightnessAdapter(private val items: List<Brightness>) : RecyclerView.Adap
 }
 
 class BrightnessViewHolder(private val viewBinding: ItemSelectorBinding) : RecyclerView.ViewHolder(viewBinding.root) {
-
     fun bind(item: Brightness) {
-        viewBinding.root.findViewById<TextView>(R.id.label).apply {
-            text = item.name
-        }
+        viewBinding.itemModel = item
     }
 }

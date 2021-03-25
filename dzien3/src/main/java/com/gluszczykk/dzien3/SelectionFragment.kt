@@ -16,7 +16,7 @@ class SelectionFragment : Fragment(R.layout.fragment_selection) {
         viewModel = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
 
         val adapter = BrightnessAdapter(getBrightnesses()) {
-            viewModel.actionStream.value = it
+            viewModel.action(it)
         }
         val recyclerView = view.findViewById<RecyclerView>(R.id.brightness_list)
         recyclerView.adapter = adapter

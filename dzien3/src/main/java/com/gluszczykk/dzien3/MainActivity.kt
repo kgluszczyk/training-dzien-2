@@ -1,5 +1,6 @@
 package com.gluszczykk.dzien3
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.progressindicator.CircularProgressIndicator
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,17 +21,30 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
-        viewModel.actionStream.observe(this, Observer<Brightness> {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment2, DetailsFragment.newInstance(it.imageSrc))
-                //.addToBackStack(null)
-                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                .commit()
+        viewModel.actionObservableStream.observe(this, Observer<MainActivityViewModel.State> {
+            when(it) {
+                is MainActivityViewModel.State.Zaladowano -> {
+                    setProgressVisibility(false)
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragment2, DetailsFragment.newInstance(it.brightness.imageSrc))
+                        //.addToBackStack(null)
+                        .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                        .commit()
+                }
+                MainActivityViewModel.State.Laduj -> setProgressVisibility(true)
+            }
         })
         setContentView(R.layout.activity_main)
     }
 }
+
+fun AppCompatActivity.setProgressVisibility(isVisible: Boolean){
+    findViewById<CircularProgressIndicator>(R.id.progress).apply {
+        visibility = if(isVisible) View.VISIBLE else View.INVISIBLE
+    }
+}
+
 
 class DetailsFragment : Fragment() {
 

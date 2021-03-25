@@ -26,6 +26,7 @@ class BrightnessViewHolder(private val viewBinding: ItemSelectorBinding, private
     fun bind(item: Brightness) {
         viewBinding.itemModel = item
         viewBinding.root.setOnClickListener {
+            viewBinding.karta.setCardBackgroundColor(viewBinding.root.context.resources.getColor(android.R.color.darker_gray))
             onBrightnessClickListener(item)
         }
     }

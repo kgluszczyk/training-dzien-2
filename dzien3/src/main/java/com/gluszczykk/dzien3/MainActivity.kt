@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.fragment2, DetailsFragment.newInstance(it.imageSrc))
+                //.addToBackStack(null)
+                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                 .commit()
         })
         setContentView(R.layout.activity_main)

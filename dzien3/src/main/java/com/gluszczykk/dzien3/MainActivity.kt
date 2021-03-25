@@ -31,8 +31,17 @@ class MainActivity : AppCompatActivity() {
                         //.addToBackStack(null)
                         .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                         .commit()
+
+                    findViewById<View>(R.id.fragment2).apply {
+                        visibility = View.VISIBLE
+                    }
                 }
-                MainActivityViewModel.State.Laduj -> setProgressVisibility(true)
+                MainActivityViewModel.State.Laduj -> {
+                    setProgressVisibility(true)
+                    findViewById<View>(R.id.fragment2).apply {
+                        visibility = View.INVISIBLE
+                    }
+                }
             }
         })
         setContentView(R.layout.activity_main)

@@ -3,6 +3,11 @@ package com.gluszczykk.dzien3
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 
 class MainActivityViewModel : ViewModel() {
@@ -10,15 +15,19 @@ class MainActivityViewModel : ViewModel() {
     private val actionStream = MutableLiveData<State>()
 
     val actionObservableStream = actionStream as LiveData<State>
+    var operacja: Job? = null
 
     fun action(action: Brightness) {
-        Thread {
+        operacja?.cancel()
+        operacja = viewModelScope.launch {
             actionStream.postValue(State.Laduj)
-            repeat(10) {
-                longOperation()
+            withContext(Dispatchers.Default) {
+                repeat(10) {
+                    longOperation()
+                }
             }
             actionStream.postValue(State.Zaladowano(action))
-        }.start()
+        }
     }
 
     private fun longOperation() {

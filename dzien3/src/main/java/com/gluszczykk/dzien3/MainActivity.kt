@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
         viewModel.actionObservableStream.observe(this, Observer<MainActivityViewModel.State> {
-            when(it) {
+            when (it) {
                 is MainActivityViewModel.State.Zaladowano -> {
                     setProgressVisibility(false)
                     supportFragmentManager
@@ -48,16 +48,16 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-fun AppCompatActivity.setProgressVisibility(isVisible: Boolean){
+fun AppCompatActivity.setProgressVisibility(isVisible: Boolean) {
     findViewById<CircularProgressIndicator>(R.id.progress).apply {
-        visibility = if(isVisible) View.VISIBLE else View.INVISIBLE
+        visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
     }
 }
-
 
 class DetailsFragment : Fragment() {
 
     companion object {
+
         private const val ImageSrcKey = "ImageSrcKey"
         fun newInstance(@DrawableRes imageSrc: Int): Fragment {
             val args = Bundle()
@@ -70,7 +70,7 @@ class DetailsFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return ImageView(requireContext()).apply {
+        return ImageView(requireContext(), null, R.style.Theme_Trening_Base_App_ImageTint).apply {
             setImageResource(requireArguments().getInt(ImageSrcKey))
         }
     }

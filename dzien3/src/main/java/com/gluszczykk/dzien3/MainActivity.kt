@@ -3,6 +3,7 @@ package com.gluszczykk.dzien3
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,7 +71,7 @@ class DetailsFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return ImageView(requireContext(), null, R.style.Theme_Trening_Base_App_ImageTint).apply {
+        return ImageView(ContextThemeWrapper(requireContext(),R.style.ImageTint), null, R.style.ImageTint).apply {
             setImageResource(requireArguments().getInt(ImageSrcKey))
         }
     }

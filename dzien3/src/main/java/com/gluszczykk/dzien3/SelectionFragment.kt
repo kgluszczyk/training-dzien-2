@@ -1,6 +1,7 @@
 package com.gluszczykk.dzien3
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -23,7 +24,11 @@ class SelectionFragment : Fragment(R.layout.fragment_selection) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.brightness_list)
         recyclerView.adapter = adapter
         lifecycleScope.launch {
-            adapter.setData(getBrightnesses())
+            runCatching {
+                adapter.setData(getBrightnesses())
+            }.onFailure {
+                Log.e("NETWORK:", "Error:", it)
+            }
         }
     }
 }

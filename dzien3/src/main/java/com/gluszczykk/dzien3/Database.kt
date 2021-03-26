@@ -1,5 +1,6 @@
 package com.gluszczykk.dzien3
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Database
 import androidx.room.Insert
@@ -16,7 +17,7 @@ import com.squareup.moshi.Types
 interface BrightnessConfigDao {
 
     @Query("SELECT * FROM brightnessconfig ORDER BY brightnessconfig.id DESC LIMIT 1")
-    fun get(): BrightnessConfig
+    fun get(): LiveData<BrightnessConfig>
 
     @Insert
     fun insert(brightnessConfig: BrightnessConfig)

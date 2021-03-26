@@ -57,8 +57,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.action1, R.id.action2 -> {
+            R.id.action1-> {
                 Toast.makeText(this, "Kliknieto: ${item.title}", Toast.LENGTH_SHORT).show()
+                return true
+            }
+            R.id.action2 -> {
+                ShutdownDialog().show(supportFragmentManager, "ShutdownDialog")
                 return true
             }
         }

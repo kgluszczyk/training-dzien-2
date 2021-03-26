@@ -28,7 +28,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun configDao(): BrightnessConfigDao
 }
 
-object Converters{
+object Converters {
+
     val moshi = Moshi.Builder().build()
     var adapter: JsonAdapter<List<Brightness>> = moshi.adapter(
         Types.newParameterizedType(
@@ -42,6 +43,4 @@ object Converters{
 
     @TypeConverter
     fun jsonToList(value: String) = adapter.fromJson(value)
-
-
 }

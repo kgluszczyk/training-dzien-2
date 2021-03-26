@@ -1,6 +1,5 @@
 package com.gluszczykk.dzien3
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ContextThemeWrapper
@@ -15,6 +14,7 @@ import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.gluszczykk.dzien3.BrightnessBindingAdapters.setBrightnessImage
 import com.google.android.material.progressindicator.CircularProgressIndicator
 
 class MainActivity : AppCompatActivity() {
@@ -31,8 +31,7 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager
                         .beginTransaction()
                         .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                        // TODO: 26/03/2021 Zmigruj
-                        //.replace(R.id.fragment2, DetailsFragment.newInstance(it.brightness.imageSrc))
+                        .replace(R.id.fragment2, DetailsFragment.newInstance(it.brightness))
                         //.addToBackStack(null)
                         .commit()
 
@@ -83,9 +82,9 @@ class DetailsFragment : Fragment() {
     companion object {
 
         private const val ImageSrcKey = "ImageSrcKey"
-        fun newInstance(@DrawableRes imageSrc: Int): Fragment {
+        fun newInstance(brightness: Brightness): Fragment {
             val args = Bundle()
-            args.putInt(ImageSrcKey, imageSrc)
+            args.putParcelable(ImageSrcKey, brightness)
 
             val fragment = DetailsFragment()
             fragment.arguments = args
@@ -95,7 +94,7 @@ class DetailsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return ImageView(ContextThemeWrapper(requireContext(),R.style.ImageTint), null, R.style.ImageTint).apply {
-            setImageResource(requireArguments().getInt(ImageSrcKey))
+            requireArguments().getParcelable<Brightness>(ImageSrcKey)?.let { setBrightnessImage(this, it) }
         }
     }
 }

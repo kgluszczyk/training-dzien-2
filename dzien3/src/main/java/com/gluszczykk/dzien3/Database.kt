@@ -7,6 +7,7 @@ import androidx.room.Query
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
+import com.gluszczykk.dzien3.App.Companion.adapter
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -28,16 +29,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun configDao(): BrightnessConfigDao
 }
 
-object Converters {
-
-    val moshi = Moshi.Builder().build()
-    var adapter: JsonAdapter<List<Brightness>> = moshi.adapter(
-        Types.newParameterizedType(
-            MutableList::class.java,
-            Brightness::class.java
-        )
-    )
-
+class Converters {
     @TypeConverter
     fun listToJson(list: List<Brightness>?) = adapter.toJson(list)
 

@@ -1,5 +1,6 @@
 package com.gluszczykk.dzien3
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ContextThemeWrapper
@@ -95,6 +96,12 @@ class DetailsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return ImageView(ContextThemeWrapper(requireContext(),R.style.ImageTint), null, R.style.ImageTint).apply {
             requireArguments().getParcelable<Brightness>(ImageSrcKey)?.let { setBrightnessImage(this, it) }
+            setOnClickListener {
+                requireContext().startService(Intent(requireContext(), MusicService::class.java))
+            }
+            setOnLongClickListener {
+                requireContext().stopService(Intent(requireContext(), MusicService::class.java))
+            }
         }
     }
 }

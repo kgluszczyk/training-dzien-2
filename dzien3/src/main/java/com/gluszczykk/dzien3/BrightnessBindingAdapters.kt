@@ -9,6 +9,7 @@ object BrightnessBindingAdapters {
     @JvmStatic
     @BindingAdapter("itemModel")
     fun setBrightnessImage(imageView: ImageView, brightness: Brightness){
-        imageView.setImageResource(brightness.imageSrc)
+        // TODO: 26/03/2021 Zmigruj
+        //imageView.setImageResource(brightness.imageSrc)
     }
 }

@@ -31,7 +31,8 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager
                         .beginTransaction()
                         .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                        .replace(R.id.fragment2, DetailsFragment.newInstance(it.brightness.imageSrc))
+                        // TODO: 26/03/2021 Zmigruj
+                        //.replace(R.id.fragment2, DetailsFragment.newInstance(it.brightness.imageSrc))
                         //.addToBackStack(null)
                         .commit()
 
